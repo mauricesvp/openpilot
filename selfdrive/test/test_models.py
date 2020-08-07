@@ -32,6 +32,11 @@ ignore_can_valid = [
   "HYUNDAI SANTA FE LIMITED 2019",
 ]
 
+ignore_carstate_check = [
+  # TODO: chrysler's gas pressed state in panda safety also includes a condition on vehicle speed
+  "CHRYSLER PACIFICA HYBRID 2017",
+]
+
 @parameterized_class(('car_model'), [(car,) for car in all_known_cars()])
 class TestCarModel(unittest.TestCase):
 
@@ -107,11 +112,11 @@ class TestCarModel(unittest.TestCase):
       self.CI.apply(CC)
 
       # wait 2s for low frequency msgs to be seen
-      if i > 200:
+      if i > 2000:
         can_invalid_cnt += not CS.canValid
 
     if self.car_model not in ignore_can_valid:
-      self.assertLess(can_invalid_cnt, 50)
+      self.assertLess(can_invalid_cnt, 20)
 
   def test_radar_interface(self):
     os.environ['NO_RADAR_SLEEP'] = "1"
@@ -147,6 +152,8 @@ class TestCarModel(unittest.TestCase):
   def test_panda_safety_carstate(self):
     if self.car_params.dashcamOnly:
       self.skipTest("no need to check panda safety for dashcamOnly")
+    if self.car_model in ignore_carstate_check:
+      self.skipTest("see comments in test_models.py")
 
     safety = libpandasafety_py.libpandasafety
     set_status = safety.set_safety_hooks(self.car_params.safetyModel.raw, self.car_params.safetyParam)

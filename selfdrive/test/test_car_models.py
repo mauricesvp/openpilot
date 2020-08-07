@@ -105,6 +105,7 @@ routes = {
     'carFingerprint': HONDA.CRV_HYBRID,
     'enableCamera': True,
   },
+  # TODO: get a new route, this one has counter and checksum errors
   "99e3eaed7396619e|2019-08-13--15-07-03": {
     'carFingerprint': HONDA.FIT,
     'enableCamera': True,
