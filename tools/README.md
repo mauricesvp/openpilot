@@ -58,7 +58,7 @@ python replay/unlogger.py <route-name>
 #python replay/unlogger.py '3533c53bb29502d1|2019-12-10--01-13-27'
 
 # In another terminal you can run a debug visualizer:
-python replay/ui.py   # Define the environmental variable HORIZONTAL is the ui layout is too tall
+python replay/ui.py   # Define the environmental variable HORIZONTAL if the ui layout is too tall
 ```
 
 Unlogger with local data downloaded from device or https://my.comma.ai:
